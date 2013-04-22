@@ -1,0 +1,41 @@
+<%- content_for :styles do -%>
+
+.head{background:url("<%=asset_path('web_icon.png')%>") repeat-x 0 -477px;}
+.head .content-block{height:91px; background-image:url("<%=asset_path('logos/qutubaike-logo.png')%>"); background-repeat:no-repeat;}
+.menu-bar{height:40px;background:url("<%=asset_path('img/web_icon.png')%>") repeat-x 0 -657px !important;}
+.main .col2 .microblog h3 {
+    background-color: #F1FCE7;
+    color: #659d61;
+}
+.menu .submenu{
+    background:url("<%=asset_path('web_icon.png')%>") repeat-x 0 -657px !important; 
+}
+.pagebar .current {
+    background: none repeat scroll 0 0 #E2F396;
+    border: 1px dashed #61683F;
+}
+.pagebar a:hover {
+        background-color:#f3ffb6;
+}
+.pagebar a, .pagebar .current, .pagebar .dots, .pagebar a.next {
+    color: #61683F;
+}
+.tags {
+    color: #BCC5C9;
+}      
+
+<%- end 
+body_attributes :id => 'qutubaike'
+content_for :title, ' - 神吐槽 - 我擦……这都什么逻辑'
+content_for :keyword, '神吐槽，吐槽，爆笑，反转，槽中槽，神吐槽制作器'
+content_for :description, '图片虽然只是图片，但在我眼中它并不仅仅是一张图片。我只需说一句话，它的价值直接递增，它的含义顿时变化，反复刺瞎愚蠢的人类。这，就是神吐槽。'
+content_for :bottom do -%>
+<div style="display: none"><script type="text/javascript" src="http://js.users.51.la/5958855.js"></script>
+	<%#= javascript_include_tag %w(huaban_button), :defer => "defer"%>
+	
+	<noscript><a href="http://www.51.la/?5958855" target="_blank"><img alt="" src="http://img.users.51.la/5958855.asp" style="border:none" /></a></noscript></div>
+<%- end -%>
+<%-content_for :head do %>
+<meta property="wb:webmaster" content="79b477db3c7c0f88" />
+<%end%>
+<%= render_skeleton %>

@@ -1,0 +1,6 @@
+<%= javascript_include_tag '/js/modernizr.min.js' %>
+<%# stylesheet_link_tag @group.options[:stylesheet] if @group and @group.options[:stylesheet] %>
+<%= stylesheet_link_tag %w(style_web /fancybox2/jquery.fancybox.css chatbox topbar popular-block jquery.pnotify.default.css calendar jquery.ad-gallery), :cache => true %>
+<style type="text/css"><%= yield :styles %></style>
+<div id="content-fot-style" style="display:none;"></div>
+<%= yield :stylesheets %>
