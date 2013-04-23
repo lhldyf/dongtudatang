@@ -1,71 +1,25 @@
-<% 
-id = article.id 
-url = article_url(article)
-group = @group || article.group -%>
-
-<%if action_name == 'show'%>
-  <%#= render :partial => '/articles/seo_for_head', :locals => { :article => article }%>
-<%end%>
-
-<div class="block untagged article" id="entry-<%= id %>" title="<%= article.created_at.strftime('%Y-%m-%d') if article.created_at%>">
-  <% unless article.title.blank? %>
-  <div class="entry-title">
-    <%if action_name == "show"%>
-      <h1><%=h article.title %></h1>
-    <%else%>
-      <h2><%=h article.title %></h2>
-    <%end%>
-  </div>
-  <% end %>
-
-  <% if article.picture.file? || article.valid_pic_remote_url? %>
-    <div class="thumb">
-      <%# if article.picture.content_type =~ /gif/i %>
-      <%= image_tag(article.pic_remote_url.blank? ? article.picture(:original) : article.pic_remote_url, :alt => (article.title || article.content || '').mb_chars[0,10]) %>
-      <%# else %>
-        <%#= link_to image_tag(article.picture(:medium), :alt => (article.title || article.content.mb_chars[0,10])), article.picture(:original),
-          :class => 'picture', :id => "picture-#{id}", :title => (article.title || article.content.mb_chars[0,10]) %>
-      <%# end %>
-    </div>
-  <% end %>
-  <p class="content entry-content" id="BSHARE_TEXT">
-    <%= format_content article, group -%>
-  </p>  
-  <div class="author">
-    <% unless article.anonymous? %>
-    <%= image_tag article.user.avatar.url(:thumb) %>
-    <%= link_to article.user.login, article.user %>
+<% id = article.id %>
+<% url = article_url(article) %>
+<%= div_for(article, :class => "hentry #{cycle('even', 'odd')} #{article.picture.file? && 'picture'} box span3") do %>
+    <% if article.picture.file? %>
+       <div class="thumbnail">
+        <% if article.picture.content_type =~ /gif/i %>
+            <%= image_tag(article.picture(:original), :alt => (article.title || article.content.mb_chars[0, 10])) %>
+        <% else %>
+            <%= link_to image_tag(article.picture(:medium), :alt => (article.title || article.content.mb_chars[0, 10])), "groups/1/articles/#{id}",
+                        :id => "picture-#{id}", :title => (article.title || article.content.mb_chars[0, 10]) %>
+        <% end %>
+        <div class="caption">
+          <h5><%= article.title %></h5>
+          <p><%= article.tag_line%>~<%= article.get_metadata("college")%></p>
+          <!--p><a href=""javascript:vote3(<%= id %>,1)" id="up-<%= id %>" class="btn btn-primary"">已戳<span id="pos-score-<%= id %>"><%= article.pos_score %></span></a></p-->
+          <div id="score-<%= id %>" class="score">
+            <% r= rated?(article) %>
+            <a href="javascript:vote3(<%= id %>,1)" id="up-<%= id %>" class="up btn <%= r && 'disabled' %>">
+            <span id="pos-score-<%= id %>"><%= article.pos_score %></span>顶
+            </a>
+          </div>
+        </div>
+       </div>
     <% end %>
-  </div>  
-  <% unless article.tag_line.blank? %>
-    <div class="tags"><span class="bti"></span><%= show_tags(article) %></div>
-  <% end %>    
-
-  <div class="bar clearfix" id="qiushi_counts_<%= id %>">
-    <div class="up" id="vote-up-<%= id %>">
-      <a href="javascript:vote2(<%= id %>,1)" id="up-<%= id %>">
-        <span><%= article.pos %></span>
-      </a>
-    </div>
-    <div class="down" id="vote-dn-<%= id %>">
-      <a href="javascript:vote2(<%= id %>,-1)" id="dn-<%= id %>">
-        <span><%= article.neg %></span>
-      </a>
-    </div>
-    <div class="share">
-      <%= render :partial => 'common/baidu_share', :object => article  %>
-    </div>
-    <div class="comment">
-      <a href="<%= url %>.html" class="qiushi_comments" id="c-<%= id %>">
-        <%= article.public_comments_count %>
-      </a>
-    </div>
-    <div class="detail">
-      <a href="<%= url %>" target="_blank" class="permalink" rel="bookmark"></a>
-    </div>
-  </div>
-  <% if controller_name == 'articles' && action_name == 'show' %>
-    <%= render :partial => "comments/index" %>
-  <% end %>
-</div>
-<div class="shadow"></div>
+<% end %>
