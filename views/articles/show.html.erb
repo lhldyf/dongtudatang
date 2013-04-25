@@ -1,42 +1,34 @@
 <% m = @article.content.blank? ? [] : @article.content.mb_chars %>
 <% content_for :keywords, @article.tags.collect{|t|t.name}.join(',') %>
 <% content_for :title do  %>
-帖子#<%=@article.id%> <%= m.size > 20 ? "#{m[0, 20]}..." : m%>
+<%= @article.title %>
 <% end %>
 <% url=URI::encode("http://#{request.domain}#{request.fullpath}")%>
 <% if ( @msg || flash[:notice] ) %><div id="notice"> <%= ( @msg || flash[:notice] ) %></div> <% end %>
 
 <% if @article %>
-  <%= render(:partial => @article ) %>
-  <% if @article.public_references.count > 0 %>
-      <%= link_to_unless_current("#{@article.public_references.count}个相关帖子", :controller => :articles, :action => :ref, :id => @article.id) do
-          "<span style='color: #96dd99'>以下是链接到该帖子的相关帖子</span>"
-          end %>
-  <% end %>
-  <div class="palyer_data">
-    <ul class ="weight"><%= @article.get_metadata("weight") %></ul> 
-    <ul class ="height"><%= @article.get_metadata("height") %></ul> 
-    <ul class ="position"><%= @article.get_metadata("position") %></ul> 
-    <ul class ="number"><%= @article.get_metadata("number") %></ul> 
-    <ul class ="introduce"><%= @article.content %> </ul>
+  <div class="palyer_photo">
+    <%= image_tag(@article.picture(:original), :class =>"featurette-image pull-left", :style => "width: 300px; height: 300px;")%>
   </div>
-  <div class="loop-nav">
-    <% unless @article.prev_in_group.nil? %>
-    <div class="previous">&laquo; <%= link_to("上一帖子", article_path(@article.prev_in_group), :rel => 'prev') %></div>
-    <% end %>
-    <% unless @article.next_in_group.nil? %>
-    <div class="next"><%= link_to("下一帖子", article_path(@article.next_in_group), :rel => 'next') %> &raquo;</div>
-    <% end %>
-  </div><!-- .loop-nav -->
+  <div class="palyer_data lead">
+    <ul class ="height">身高: <%= @article.get_metadata("height") %></ul> 
+    <ul class ="weight">体重: <%= @article.get_metadata("weight") %></ul> 
+    <ul class ="position">位置: <%= @article.get_metadata("position") %></ul> 
+    <ul class ="number">号码: <%= @article.get_metadata("number") %></ul> 
+    <ul class ="introduce">介绍: <%= @article.content %> </ul>
+  </div>
 <% end %>
 
-<% if @article.original_picture and @article.original_picture.articles.size > 1 %>
-  <h3>相关涂鸦</h3>
-  <ul>
-  <% @article.original_picture.articles.each do |art| %>
-  <% unless art.id == @article.id or art.status != 'publish' %>
-  <%= link_to art.title, art %>
-  <% end %>
-  <% end %>
-  </ul>
-<% end %>
+    <!--div class="comments_link">
+      <a href="<%= article_path(@article, :anchor => "comments") %>" class="comments btn " id="c-<%= @article.id %>">
+        <i class="icon-comment"></i>
+        <% if @article.comment_status == 'closed' %>
+            禁止评论
+        <% else %>
+            <%= @article.public_comments_count > 0 ? "#{@article.public_comments_count}条评论" : "暂无评论" %>
+        <% end %>
+      </a>
+    </div-->
+  <div style="clear:both;"></div>
+  <%= render(:partial => 'comments/index') if controller_name == 'articles' && action_name == 'show'%>
+

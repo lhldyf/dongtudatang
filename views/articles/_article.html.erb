@@ -1,25 +1,26 @@
 <% id = article.id %>
 <% url = article_url(article) %>
-<%= div_for(article, :class => "hentry #{cycle('even', 'odd')} #{article.picture.file? && 'picture'} box span3") do %>
+<%= div_for(article, :class => "span", :style => "width: 200px") do %>
     <% if article.picture.file? %>
-       <div class="thumbnail">
-        <% if article.picture.content_type =~ /gif/i %>
-            <%= image_tag(article.picture(:original), :alt => (article.title || article.content.mb_chars[0, 10])) %>
-        <% else %>
-            <%= link_to image_tag(article.picture(:medium), :alt => (article.title || article.content.mb_chars[0, 10])), "groups/1/articles/#{id}",
-                        :id => "picture-#{id}", :title => (article.title || article.content.mb_chars[0, 10]) %>
-        <% end %>
-        <div class="caption">
-          <h5><%= article.title %></h5>
-          <p><%= article.tag_line%>~<%= article.get_metadata("college")%></p>
-          <!--p><a href=""javascript:vote3(<%= id %>,1)" id="up-<%= id %>" class="btn btn-primary"">已戳<span id="pos-score-<%= id %>"><%= article.pos_score %></span></a></p-->
-          <div id="score-<%= id %>" class="score">
-            <% r= rated?(article) %>
-            <a href="javascript:vote3(<%= id %>,1)" id="up-<%= id %>" class="up btn <%= r && 'disabled' %>">
-            <span id="pos-score-<%= id %>"><%= article.pos_score %></span>顶
-            </a>
-          </div>
+      <% if article.picture.content_type =~ /gif/i %>
+          <%= image_tag(article.picture(:original), :alt => (article.title || article.content.mb_chars[0, 10])) %>
+      <% else %>
+          <%= link_to image_tag(article.picture(:medium), :class => "img", :alt => (article.title || article.content.mb_chars[0, 10]), :style => "width: 231px; height: 232px;"), "/articles/#{id}", :id => "picture-#{id}", :title => (article.title || article.content.mb_chars[0, 10]) %>
+      <% end %>
+      <div class="info">
+        <span><%= article.title %></span>
+        <span><%= article.get_metadata("motto") %></span>
+      </div>
+      <div class="caption">
+        <h5><%= article.title %></h5>
+        <p><%= article.tag_line%>~<%= article.get_metadata("college")%></p>
+        <!--p><a href=""javascript:vote3(<%= id %>,1)" id="up-<%= id %>" class="btn btn-primary"">已戳<span id="pos-score-<%= id %>"><%= article.pos_score %></span></a></p-->
+        <div id="score-<%= id %>" class="score">
+          <% r= rated?(article) %>
+          <a href="javascript:vote3(<%= id %>,1)" id="up-<%= id %>" class="up btn <%= r && 'disabled' %>">
+          <span id="pos-score-<%= id %>"><%= article.pos_score %></span>顶
+          </a>
         </div>
-       </div>
+      </div>
     <% end %>
 <% end %>
