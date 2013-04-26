@@ -1,24 +1,22 @@
 <% id = article.id %>
 <% url = article_url(article) %>
-<%= div_for(article, :class => "span", :style => "width: 200px") do %>
+<%= div_for(article, :class => "span") do %>
     <% if article.picture.file? %>
-      <% if article.picture.content_type =~ /gif/i %>
-          <%= image_tag(article.picture(:original), :alt => (article.title || article.content.mb_chars[0, 10])) %>
-      <% else %>
-          <%= link_to image_tag(article.picture(:medium), :class => "img", :alt => (article.title || article.content.mb_chars[0, 10]), :style => "width: 231px; height: 232px;"), "/articles/#{id}", :id => "picture-#{id}", :title => (article.title || article.content.mb_chars[0, 10]) %>
-      <% end %>
-      <div class="info">
-        <span><%= article.title %></span>
-        <span><%= article.get_metadata("motto") %></span>
+      <div class="player">
+        <%= link_to image_tag(article.picture(:medium), :class => "img", :alt => (article.title || article.content.mb_chars[0, 10])), "/articles/#{id}", :id => "picture-#{id}", :class => "player-photo", :title => (article.title || article.content.mb_chars[0, 10]) %>
+        <div class="info">
+          <p><%= article.title %></p>
+          <p><%= article.get_metadata("motto") %></p>
+        </div>
       </div>
       <div class="caption">
-        <h5><%= article.title %></h5>
-        <p><%= article.tag_line%>~<%= article.get_metadata("college")%></p>
+        <div class="shu"><p>所属/<span class="xi"><%= article.tag_line%></span>•<span class="xi"><%= article.get_metadata("college")%></span></p>
+        <p>已戳/<span class="xi"><%= article.pos_score %></p></div>
         <!--p><a href=""javascript:vote3(<%= id %>,1)" id="up-<%= id %>" class="btn btn-primary"">已戳<span id="pos-score-<%= id %>"><%= article.pos_score %></span></a></p-->
         <div id="score-<%= id %>" class="score">
           <% r= rated?(article) %>
-          <a href="javascript:vote3(<%= id %>,1)" id="up-<%= id %>" class="up btn <%= r && 'disabled' %>">
-          <span id="pos-score-<%= id %>"><%= article.pos_score %></span>顶
+          <a href="javascript:vote3(<%= id %>,1)" id="up-<%= id %>" class="up <%= r && 'disabled' %>">
+          <span id="pos-score-<%= id %>"></span>
           </a>
         </div>
       </div>

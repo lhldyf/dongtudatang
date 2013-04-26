@@ -1,23 +1,44 @@
 <% m = @article.content.blank? ? [] : @article.content.mb_chars %>
 <% content_for :keywords, @article.tags.collect{|t|t.name}.join(',') %>
 <% content_for :title do  %>
-<%= @article.title %>
+<%= "个人信息" %>
 <% end %>
 <% url=URI::encode("http://#{request.domain}#{request.fullpath}")%>
 <% if ( @msg || flash[:notice] ) %><div id="notice"> <%= ( @msg || flash[:notice] ) %></div> <% end %>
 
 <% if @article %>
-  <div class="palyer_photo">
-    <%= image_tag(@article.picture(:original), :class =>"featurette-image pull-left", :style => "width: 300px; height: 300px;")%>
-  </div>
-  <div class="palyer_data lead">
-    <ul class ="height">身高: <%= @article.get_metadata("height") %></ul> 
-    <ul class ="weight">体重: <%= @article.get_metadata("weight") %></ul> 
-    <ul class ="position">位置: <%= @article.get_metadata("position") %></ul> 
-    <ul class ="number">号码: <%= @article.get_metadata("number") %></ul> 
-    <ul class ="introduce">介绍: <%= @article.content %> </ul>
-  </div>
+  <div class="words"><span>详细信息</span></div>
+  <div id="player">
+    <div class="player-photo">
+      <%= image_tag(@article.picture(:original), :class =>"photo")%>
+    </div>
+    <div class="player-data lead">
+      <ul class ="name"><%= @article.title %> </ul>
+      <ul class ="height">身高: <%= @article.get_metadata("height") %></ul> 
+      <ul class ="weight">体重: <%= @article.get_metadata("weight") %></ul> 
+      <ul class ="position">位置: <%= @article.get_metadata("position") %></ul> 
+      <ul class ="number">号码: <%= @article.get_metadata("number") %></ul> 
+      <ul class ="introduce">介绍: <%= @article.content %> </ul>
+    </div>
 <% end %>
+
+    <div style="clear: both;"></div>
+
+    <div class="vote">
+      <div id="score-<%= @article.id %>" class="score">
+        <div class="pos-score"><%= @article.pos_score %></div>
+        <% r= rated?(@article) %>
+        <a href="javascript:vote3(<%= @article.id %>,1)" id="up-<%= @article.id %>" class="up <%= r && 'disabled' %>">
+        <!--span id="pos-score-<%= @article.id %>"><%= @article.pos_score %></span-->
+        <!--img src = <%=current_theme_image_path('tou.jpg')%>-->
+        <% if r %>
+          <%= button_to_function("已戳","", :class => "vote-button")%>
+        <% else %>
+          <%= button_to_function("投我一票","#", :class => "vote-button")%>
+        <% end %>
+        </a>
+      </div>
+    </div>
 
     <!--div class="comments_link">
       <a href="<%= article_path(@article, :anchor => "comments") %>" class="comments btn " id="c-<%= @article.id %>">
@@ -29,6 +50,5 @@
         <% end %>
       </a>
     </div-->
-  <div style="clear:both;"></div>
-  <%= render(:partial => 'comments/index') if controller_name == 'articles' && action_name == 'show'%>
-
+    <%= render(:partial => 'comments/index') if controller_name == 'articles' && action_name == 'show'%>
+  </div>
