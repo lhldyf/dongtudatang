@@ -5,5 +5,5 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
 <script>window.jQuery || document.write('<script src="/js/jquery-1.7.1.min.js">\x3C/script>')</script>
 <%= javascript_include_tag '/js/bootstrap.min.js', 'application', 'csrf_protect' %>
-<%= javascript_include_tag current_theme_javascript_path('info'), current_theme_javascript_path('ajaxcomment') %>
+<%= javascript_include_tag current_theme_javascript_path('info'), current_theme_javascript_path('ajaxcomment'), current_theme_javascript_path('application')%>
 <%= yield :javascripts %>
