@@ -115,7 +115,7 @@
 }
 .footer{
     font-weight: bold;
-    font-size: 15px;
+    font-size: 13px;
     text-align: center;
     background-color: #000;
     color: #FFF;
@@ -148,7 +148,8 @@
 }
 
 body{
-    background-image: url("../images/background.jpg")
+    background-image: url("../images/background.jpg");
+    overflow:auto;
 }
 
 #header{
@@ -190,9 +191,8 @@ body{
 
 .container.show #player .player-photo{
     float:left;
-    position: relative;
-    left: 8%;
-    top: 50px;
+    margin: 10%;
+    margin-bottom: 30px;
 }
 
 .container.show #player .player-photo .photo{
@@ -202,12 +202,7 @@ body{
 
 
 .content .player-data.lead{
-    float:left;
-    width: 400px;
-    height: 300px;
-    position: relative; 
-    top: 50px;
-    left: 20%;
+    display: inline;
 }
 
 .content .player-data.lead .name{
@@ -217,50 +212,31 @@ body{
     font-size: 36px;
     height: 90px;
 }
-
+.content .player-data.lead ul{
+    margin-right: 5%;
+}
 
 .content .vote{
-    position: relative;
-    width: 300px;
-    height: 130px;
-    left: 8%;
+    margin: 10px;
 }
 
-.content .vote .pos-score{
-    position: relative;
+.content .vote .score{
     text-align: center; 
     font-size: 36px; 
-    top: 50px;
-}
-
-.content .vote .score .up.disabled .vote-button{
-    float: left;
-    position: relative;
-    top: 60px;
-    left: 40px;
-    color: white;
-    font-size: 36px;
-    width: 220px;
-    height: 50px;
-    background-color: gray;
-    border-radius: 10px;
 }
 
 .content .vote .score .up .vote-button{
     /*when the user have vote*/
-    float: left;
-    position: relative;
-    top: 60px;
-    left: 40px;
     color: white;
-    font-size: 36px;
     width: 220px;
     height: 50px;
+    font-size: 36px;
     background-color: rgb(165, 18, 18);
     border-radius: 10px;
+    margin: 10px;
 }
 
-.comments-template .comments .comment-content{
-    font-size: 20px;
-    font-family: "Lucida Console", Monaco, monospace;
+.content .vote .score .up.disabled .vote-button{
+    /*when the user have not vote*/
+    background-color: gray;
 }

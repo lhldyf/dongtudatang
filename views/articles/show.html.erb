@@ -11,6 +11,21 @@
   <div id="player">
     <div class="player-photo">
       <%= image_tag(@article.picture(:original), :class =>"photo")%>
+      <div class="vote">
+        <div id="score-<%= @article.id %>" class="score">
+          <div class="pos-score" id="pos-score-<%= @article.id %>"><%= @article.pos_score %></div>
+          <% r= rated?(@article) %>
+          <a href="javascript:vote3(<%= @article.id %>,2)" id="up-<%= @article.id %>" class="up <%= r && 'disabled' %>">
+          <!--span id="pos-score-<%= @article.id %>"><%= @article.pos_score %></span-->
+          <!--img src = <%=current_theme_image_path('tou.jpg')%>-->
+          <% if r %>
+            <%= button_to_function("已戳","", :class => "vote-button")%>
+          <% else %>
+            <%= button_to_function("投我一票","#", :class => "vote-button")%>
+          <% end %>
+          </a>
+        </div>
+      </div>
     </div>
     <div class="player-data lead">
       <ul class ="name"><%= @article.title %> </ul>
@@ -23,23 +38,6 @@
 <% end %>
 
     <div style="clear: both;"></div>
-
-    <div class="vote">
-      <div id="score-<%= @article.id %>" class="score">
-        <div class="pos-score" id="pos-score-<%= @article.id %>"><%= @article.pos_score %></div>
-        <% r= rated?(@article) %>
-        <a href="javascript:vote3(<%= @article.id %>,2)" id="up-<%= @article.id %>" class="up <%= r && 'disabled' %>">
-        <!--span id="pos-score-<%= @article.id %>"><%= @article.pos_score %></span-->
-        <!--img src = <%=current_theme_image_path('tou.jpg')%>-->
-        <% if r %>
-          <%= button_to_function("已戳","", :class => "vote-button")%>
-        <% else %>
-          <%= button_to_function("投我一票","#", :class => "vote-button")%>
-        <% end %>
-        </a>
-      </div>
-    </div>
-
     <!--div class="comments_link">
       <a href="<%= article_path(@article, :anchor => "comments") %>" class="comments btn " id="c-<%= @article.id %>">
         <i class="icon-comment"></i>
