@@ -7,8 +7,10 @@
     width: 24%;
     height: 300px;
     margin-left: 0px;
-    margin-right: 1px;
+    margin-right: 2px;
     border: solid #DDD;
+    border-width: 1px;
+    margin-top: 5px;
 }
 
 .row{
@@ -36,7 +38,9 @@
 }
 
 .content .article .caption{
-    height:87px;
+    height: 87px;
+    margin: 10px;
+    line-height: 1.2;
 }
 .caption .score{
     position: relative;
@@ -202,7 +206,7 @@ body{
     width: 400px;
     height: 300px;
     position: relative; 
-    top: 50x;
+    top: 50px;
     left: 20%;
 }
 
@@ -251,7 +255,7 @@ body{
     color: white;
     font-size: 36px;
     width: 220px;
-    height: 40px;
+    height: 50px;
     background-color: rgb(165, 18, 18);
     border-radius: 10px;
 }
