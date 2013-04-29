@@ -102,6 +102,7 @@
     left: 4px;
     top: 20px;
     padding: 3px;
+    border: solid rgb(238, 220, 220);
 }
 .footer{
     font-weight: bold;
@@ -156,7 +157,7 @@ body{
 
 .container.show{
     position: relative;
-    width: 100%;
+    width: 1170px;
     background-color: black;
 }
 
