@@ -18,14 +18,14 @@ $(document).ready(function() {
         //$(this).find('img').stop(false,true).animate({'width':width, 'height':height, 'top':move, 'left':move}, {duration:200});
         
         //Display the caption
-        $(this).find('div.info').stop(false,true).fadeIn();
+        $(this).find('div.info').stop(false,true).slideDown(400);
     },
     function() {
         //Reset the image
         //$(this).find('img').stop(false,true).animate({'width':$('.zitem').width(), 'height':$('.zitem').height(), 'top':'0', 'left':'0'}, {duration:100});  
 
         //Hide the caption
-        $(this).find('div.info').stop(false,true).fadeOut();
+        $(this).find('div.info').stop(false,true).slideUp(300);
     });
 
 });

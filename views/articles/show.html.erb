@@ -26,9 +26,9 @@
 
     <div class="vote">
       <div id="score-<%= @article.id %>" class="score">
-        <div class="pos-score"><%= @article.pos_score %></div>
+        <div class="pos-score" id="pos-score-<%= @article.id %>"><%= @article.pos_score %></div>
         <% r= rated?(@article) %>
-        <a href="javascript:vote3(<%= @article.id %>,1)" id="up-<%= @article.id %>" class="up <%= r && 'disabled' %>">
+        <a href="javascript:vote3(<%= @article.id %>,2)" id="up-<%= @article.id %>" class="up <%= r && 'disabled' %>">
         <!--span id="pos-score-<%= @article.id %>"><%= @article.pos_score %></span-->
         <!--img src = <%=current_theme_image_path('tou.jpg')%>-->
         <% if r %>
