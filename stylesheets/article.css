@@ -17,7 +17,7 @@
     margin-left: auto;
 }
 
-.row.content.article.player{
+.row .content .article .player img{
     width: 231px;
     height: 232px;
 }
